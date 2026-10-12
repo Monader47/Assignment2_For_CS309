@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع تطوير الواجهات - متطلبات الوصولية والمكونات</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --text-muted: #6c757d;
+            --primary-color: #0d6efd;
+            --primary-hover: #0b5ed7;
+            --border-color: #ced4da;
+            --alert-bg: #cfe2ff;
+            --alert-text: #084298;
+            --modal-overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --card-bg: #1e1e1e;
+                --text-color: #f8f9fa;
+                --text-muted: #adb5bd;
+                --primary-color: #3d8bfd;
+                --primary-hover: #6ea8fe;
+                --border-color: #495057;
+                --alert-bg: #031633;
+                --alert-text: #6ea8fe;
+                --modal-overlay: rgba(0, 0, 0, 0.75);
+            }
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .full-width-tablet {
+                grid-column: span 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .full-width-desktop {
+                grid-column: span 3;
+            }
+        }
+
+        
+        .alert {
+            background-color: var(--alert-bg);
+            color: var(--alert-text);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* عناصر النماذج (Form Elements) */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: 2px solid var(--primary-color);
+            border-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+       
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 1000;
+        }
+
+        .modal-overlay:target {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            left: 15px; /* عشان الـ RTL */
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .modal-close:hover {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>لوحة تحكم النظام المتجاوبة</h1>
+        <p>مصممة لدعم وضع الظلام، الوصولية العالية، والاستجابة لمختلف الشاشات.</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="card">
+            <h2>البيانات الشخصية</h2>
+            <div class="alert" role="alert">
+                تنبيه: يرجى التأكد من ملء جميع الحقول المطلوبة بدقة.
+            </div>
+            
+            <form>
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" name="username" placeholder="اكتب اسمك هنا..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">المدينة</label>
+                    <select id="city" name="city">
+                        <option value="">اختر المدينة...</option>
+                        <option value="cairo">القاهرة</option>
+                        <option value="giza">الجيزة</option>
+                        <option value="alex">الإسكندرية</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">حفظ البيانات</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>النوافذ المنبثقة (CSS Modal)</h2>
+            <p style="color: var(--text-muted);">اضغط على الزر أدناه لفتح النافذة المنبثقة المصنوعة بـ CSS بالكامل دون استخدام أي أكواد JavaScript.</p>
+            <a href="#demo-modal" class="btn">فتح نافذة Modal</a>
+        </section>
+
+        <section class="card">
+            <h2>إحصائيات سريعة</h2>
+            <p style="color: var(--text-muted);">هذا المكون مخصص لاختبار مرونة الشبكة (Grid Layout) على شاشات التابلت والديسكتوب.</p>
+            <ul style="padding-right: 20px; color: var(--text-color);">
+                <li>توافق تام مع المعايير.</li>
+                <li>درجة وصولية (Accessibility) تتخطى 90.</li>
+                <li>دعم تلقائي للوضع المظلم.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-box" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+            <a href="#" class="modal-close" aria-label="إغلاق النافذة">&times;</a>
+            <h3 id="modal-title">نافذة منبثقة تفاعلية</h3>
+            <p>تم تصميم هذه النافذة باستخدام تقنية CSS النحتية البحتة اعتماداً على الـ Pseudo-class الخاصة بـ <code>:target</code>، ودون الحاجة لأي مكتبات أو JavaScript.</p>
+            <br>
+            <a href="#" class="btn">إغلاق</a>
+        </div>
+    </div>
+
+</body>
+</html>
